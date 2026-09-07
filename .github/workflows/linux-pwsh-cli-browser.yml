@@ -1,0 +1,76 @@
+name: linux-pwsh-cli-browser
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - master
+  schedule:
+    - cron: "0 6 * * *"
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  control:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verificar PowerShell, GitHub CLI, Git y Node
+        shell: pwsh
+        run: |
+          $PSVersionTable
+          gh --version
+          git --version
+          node --version
+          npm --version
+
+      - name: Instalar Playwright y Chromium headless
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+          npx playwright --version
+
+      - name: Probar navegador
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/browser-screenshot.js https://example.com browser-test.png
+
+      - name: Autenticar GitHub CLI
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+        run: |
+          gh auth status
+
+      - name: Ejecutar skills de control de repos
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN || github.token }}
+          CREATE_ISSUE: 'false'
+        run: |
+          pwsh -File ./scripts/Control-Repos.ps1
+
+      - name: Subir evidencias del navegador
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-artifacts
+          path: |
+            browser-test.png
+            screenshot.png
+          if-no-files-found: ignore

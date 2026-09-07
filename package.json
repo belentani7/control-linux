@@ -1,0 +1,24 @@
+{
+  "name": "control-linux",
+  "version": "1.0.0",
+  "description": "Linux + PowerShell + GitHub CLI + Browser + Skills for repository control",
+  "main": "scripts/Control-Repos.ps1",
+  "scripts": {
+    "dev": "pwsh scripts/Control-Repos.ps1",
+    "browser": "node scripts/browser-screenshot.js",
+    "list-repos": "pwsh skills/List-Repos.ps1",
+    "create-issue": "pwsh skills/Create-Issue.ps1",
+    "screenshot": "pwsh skills/Screenshot.ps1",
+    "control": "pwsh scripts/Control-Repos.ps1"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pwsh": ">=7.0.0"
+  }
+}
