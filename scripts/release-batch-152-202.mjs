@@ -6,7 +6,8 @@
  * Requires RELEASE_TOKEN with least-privilege read + PR merge permissions.
  */
 import { readFileSync, mkdirSync, writeFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { pathToFileURL } from "node:url";
+import { resolve } from "node:path";
 
 const manifestUrl = new URL("../release/batch-152-202.json", import.meta.url);
 const outputDir = new URL("../out/", import.meta.url);
@@ -131,6 +132,6 @@ export async function main() {
 }
 
 const invokedPath = process.argv[1];
-if (invokedPath && import.meta.url === new URL("file://" + fileURLToPath(new URL(import.meta.url))).href && invokedPath.endsWith("release-batch-152-202.mjs")) {
+if (invokedPath && import.meta.url === pathToFileURL(resolve(invokedPath)).href) {
   await main().catch((error) => { console.error(error.message); process.exitCode = 1; });
 }
