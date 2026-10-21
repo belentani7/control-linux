@@ -1,0 +1,264 @@
+{
+  "schema": 1,
+  "owner": "belentani7",
+  "range": "152-202",
+  "verifiedAt": "2026-10-21",
+  "intent": "Preservar repositorios y publicar solo PRs con CI verificado",
+  "projects": [
+    {
+      "number": 152,
+      "name": "boutique-catalogo",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 153,
+      "name": "bportal",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 154,
+      "name": "BRAIN",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 155,
+      "name": "build-everything",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 156,
+      "name": "capacity-gate-autopilot",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 157,
+      "name": "CARQUIDEC",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 158,
+      "name": "carquidec-3",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 159,
+      "name": "CARQUIDEC-ULTRA",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 160,
+      "name": "cassandra-belentani-complex",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 161,
+      "name": "cassandra-complex",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 162,
+      "name": "catalonia-booking",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 163,
+      "name": "caveman-skill",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 164,
+      "name": "cinematic-prompt-formatter",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 165,
+      "name": "circuit-ai-support",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 166,
+      "name": "claude-skills",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 167,
+      "name": "claude-skills-full",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 168,
+      "name": "claude-skills-pack",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 169,
+      "name": "claudecode-ritheshh",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 170,
+      "name": "cli-that-thing",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 171,
+      "name": "clon-manosabiertas",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 172,
+      "name": "CODEX-OMEGA-SKILL",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 173,
+      "name": "codigo-pdf-sepe",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 174,
+      "name": "comfyui-json-compiler",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 175,
+      "name": "Compa-ero-de-Windows-Similar-a-Widget-Flotante-en-Android",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 176,
+      "name": "Construye-Belentani_-Coder-Local-Independiente-de-API-y-IA",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 177,
+      "name": "contexto-repos",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 178,
+      "name": "control-linux",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 179,
+      "name": "coqui_tts",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 180,
+      "name": "Crear-un-Prompt-para-Rellenar-Vac-os-en-el-Plan",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 181,
+      "name": "creative-ai-hub",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 182,
+      "name": "criba",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 183,
+      "name": "Cruzando-el-charco",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 184,
+      "name": "cruzando-el-charco-v2",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 185,
+      "name": "cruzando-el-charco-web",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 186,
+      "name": "ctg-psicologia-archive-2026",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 187,
+      "name": "ctg-psicologia-next",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 188,
+      "name": "cuidamar-privacidad-portable",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 189,
+      "name": "cuidar-conecta-marcia",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 190,
+      "name": "customer-agent",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 191,
+      "name": "cv-ai-launch",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 192,
+      "name": "deepseek-fix-verify",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 193,
+      "name": "desktop",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 194,
+      "name": "DEV-TOOLKIT",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 195,
+      "name": "diamante-fotorealista",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 196,
+      "name": "dict-academic-platform",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 197,
+      "name": "docker-workforce",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 198,
+      "name": "duck-2000",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 199,
+      "name": "duck-2000-2",
+      "archivedAtInventory": true
+    },
+    {
+      "number": 200,
+      "name": "duck-2026",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 201,
+      "name": "DUCK-A-GEMA-1-LAB",
+      "archivedAtInventory": false
+    },
+    {
+      "number": 202,
+      "name": "duck-apps",
+      "archivedAtInventory": false
+    }
+  ]
+}

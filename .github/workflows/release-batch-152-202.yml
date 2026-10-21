@@ -1,0 +1,51 @@
+name: Safe release — repos 152–202
+
+on:
+  workflow_dispatch:
+    inputs:
+      merge_ready:
+        description: "Merge only PRs with all successful checks (archived repos always skipped)"
+        type: boolean
+        default: false
+        required: false
+  schedule:
+    - cron: '17 8 * * *'
+
+permissions:
+  contents: read
+
+jobs:
+  release-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      RELEASE_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test deterministic release policy
+        run: node --test tests/release-batch-152-202.test.mjs
+      - name: Require explicitly configured restricted token
+        run: |
+          if [ -z "$RELEASE_TOKEN" ]; then
+            echo "::error::Configure RELEASE_TOKEN with permissions to read checks and merge authorized pull requests."
+            exit 1
+          fi
+      - name: Scan the original 51 repositories and merge only if authorized and green
+        shell: bash
+        run: |
+          if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.merge_ready }}" == "true" ]]; then
+            node scripts/release-batch-152-202.mjs --merge-ready
+          else
+            node scripts/release-batch-152-202.mjs
+          fi
+      - name: Store release evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-batch-152-202
+          path: out/batch-152-202.json
+          if-no-files-found: ignore
+          retention-days: 30
