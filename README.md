@@ -1,12 +1,12 @@
 # Control Linux
 
-Private control toolkit for GitHub repository inventory, PowerShell 7, Linux/WSL, and public-site browser screenshots. The source of truth for intended future capabilities is `PROJECT_MASTER_PROMPT.md`; proposed verbs such as `apply` and `resume` are **not implemented**.
+Repository control toolkit for GitHub repository inventory, PowerShell 7, Linux/WSL, and public-site browser screenshots. The source of truth for intended future capabilities is `PROJECT_MASTER_PROMPT.md`; proposed verbs such as `apply` and `resume` are **not implemented**.
 
 ## What is implemented
 
 - `scripts/Control-Repos.ps1`: authenticates `gh`, inspects the current repository, lists up to 500 repositories owned by `belentani7`, reports issues/PRs, and captures a screenshot of `https://example.com`. GitHub issue creation requires both `CREATE_ISSUE=true` and `ALLOW_GITHUB_WRITES=yes-i-authorize-writes`; the scheduled workflow sets `CREATE_ISSUE=false` and has read-only repository permissions.
 - `skills/List-Repos.ps1`: a small `gh repo list` wrapper.
-- `scripts/browser-screenshot.js`: saves screenshots of credential-free, public HTTPS URLs only. It rejects direct IP/local destinations, unsafe DNS answers, query strings on initial targets, and existing or unsafe output paths. Network requests from the browser context are checked again; **this is not a guarantee against every DNS-rebinding/proxy scenario**.
+- `scripts/browser-screenshot.js`: saves screenshots of credential-free, public HTTPS URLs only. It rejects direct IP/local destinations, unsafe DNS answers, query strings on initial targets, and existing or unsafe output paths. PNG files are created exclusively (`wx`, mode `0600`) after capture, so a dangling symlink or competing file cannot be overwritten. Network requests from the browser context are checked again; **this is not a guarantee against every DNS-rebinding/proxy scenario**.
 - `tests/*.test.js`: offline Node tests for read-only workflow guards and screenshot input/DNS validation.
 
 ## Run from an existing authorized checkout
@@ -30,7 +30,7 @@ The screenshot command requires Playwright/Chromium to be installed, and refuses
 
 ## Security and preservation
 
-This repository remains private. Do not publish private repositories or personal content, expose tokens, upload unreviewed screenshots, delete repositories, or bypass permissions. See `SECURITY.md` and the preservation protocol in `belentani7/workflow-orchestrator`. A Git bundle alone is not a complete backup of Git LFS, issues, releases, metadata or offsite encrypted copies.
+GitHub currently reports this repository as **public** (verified 2026-10-27), despite earlier documentation describing it as private. Do not publish private repositories or personal content, expose tokens, upload unreviewed screenshots, delete repositories, or bypass permissions. See `SECURITY.md` and the preservation protocol in `belentani7/workflow-orchestrator`. A Git bundle alone is not a complete backup of Git LFS, issues, releases, metadata or offsite encrypted copies.
 
 ## License
 

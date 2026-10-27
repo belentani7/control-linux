@@ -65,3 +65,35 @@ test('output stays in cwd, is PNG and cannot overwrite existing files', () => {
   }
   assert.throws(() => validateOutput('scripts/browser-screenshot.js'));
 });
+
+test('exclusive screenshot writer rejects dangling symlinks and existing files', async () => {
+  const { mkdtempSync, symlinkSync, existsSync, readFileSync, writeFileSync, statSync, rmSync } = require('node:fs');
+  const { tmpdir } = require('node:os');
+  const { join } = require('node:path');
+  const { saveScreenshot } = require('../scripts/browser-screenshot');
+  const directory = mkdtempSync(join(tmpdir(), 'control-linux-screenshot-'));
+  const previous = process.cwd();
+  try {
+    process.chdir(directory);
+    symlinkSync('outside.txt', 'dangling.png');
+    // existsSync(dangling) is false: the earlier validateOutput check alone
+    // could not prevent screenshot path writes from following this symlink.
+    assert.equal(existsSync('dangling.png'), false);
+    await assert.rejects(saveScreenshot('dangling.png', Buffer.from('image')), { code: 'EEXIST' });
+    assert.equal(existsSync('outside.txt'), false);
+
+    writeFileSync('existing.png', 'original');
+    await assert.rejects(saveScreenshot('existing.png', Buffer.from('image')), /overwrite|EEXIST/i);
+    assert.equal(readFileSync('existing.png', 'utf8'), 'original');
+
+    const png = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
+    await saveScreenshot('new.png', png);
+    assert.deepEqual(readFileSync('new.png'), png);
+    if (process.platform !== 'win32') {
+      assert.equal(statSync('new.png').mode & 0o777, 0o600);
+    }
+  } finally {
+    process.chdir(previous);
+    rmSync(directory, { recursive: true, force: true });
+  }
+});

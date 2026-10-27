@@ -2,6 +2,7 @@
 
 const dns = require('node:dns').promises;
 const { existsSync } = require('node:fs');
+const { open } = require('node:fs/promises');
 const { isIP, BlockList } = require('node:net');
 const { basename } = require('node:path');
 
@@ -68,6 +69,18 @@ function validateOutput(name) {
   return name;
 }
 
+// Exclusive creation is required: an existence check alone follows neither
+// dangling symlinks nor races with another process creating the same path.
+async function saveScreenshot(file, png) {
+  validateOutput(file);
+  const handle = await open(file, 'wx', 0o600);
+  try {
+    await handle.writeFile(png);
+  } finally {
+    await handle.close();
+  }
+}
+
 async function capture(raw, output) {
   const target = await assertPublicUrl(raw);
   const file = validateOutput(output);
@@ -87,7 +100,8 @@ async function capture(raw, output) {
     });
     const response = await page.goto(target.href, { waitUntil: 'domcontentloaded', timeout: 20000 });
     if (!response || !response.ok()) throw new Error('Target did not return a successful HTTP response');
-    await page.screenshot({ path: file, fullPage: true, timeout: 20000 });
+    const png = await page.screenshot({ fullPage: true, timeout: 20000 });
+    await saveScreenshot(file, png);
     console.log(`Screenshot saved: ${file}`);
   } finally {
     await browser.close();
@@ -103,4 +117,4 @@ if (require.main === module) {
     });
 }
 
-module.exports = { isPublicAddress, parsePublicUrl, assertPublicUrl, validateOutput };
+module.exports = { isPublicAddress, parsePublicUrl, assertPublicUrl, validateOutput, saveScreenshot };
