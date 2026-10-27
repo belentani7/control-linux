@@ -1,4 +1,9 @@
-$ErrorActionPreference = 'Continue'
+$ErrorActionPreference = 'Stop'
+
+# The inventory workflow is read-only. Only a separately-authorized,
+# explicitly requested operator command should mutate a GitHub repo.
+$allowIssueCreation = $env:CREATE_ISSUE -eq 'true' -and
+    $env:ALLOW_GITHUB_WRITES -eq 'yes-i-authorize-writes'
 
 function Write-Skill {
     param([string]$Name)
@@ -26,7 +31,7 @@ Write-Host "Repo actual: $repo"
 Write-Host "Rama por defecto: $branch"
 
 Write-Skill "Skill 3: repos accesibles"
-gh repo list --limit 10 --json nameWithOwner,visibility,updatedAt
+gh repo list belentani7 --limit 500 --json nameWithOwner,visibility,updatedAt
 if ($LASTEXITCODE -ne 0) {
     Write-Warning "No se pudieron listar más repos. Puede faltar permiso al token."
 }
@@ -56,7 +61,10 @@ if ($LASTEXITCODE -ne 0) {
 }
 Write-Host "Screenshot guardado en screenshot.png"
 
-if ($env:CREATE_ISSUE -eq 'true') {
+if ($env:CREATE_ISSUE -eq 'true' -and -not $allowIssueCreation) {
+    throw 'GitHub writes were requested without ALLOW_GITHUB_WRITES=yes-i-authorize-writes'
+}
+if ($allowIssueCreation) {
     Write-Skill "Skill 8: crear issue de control"
     gh issue create `
         --repo $repo `
