@@ -10,7 +10,8 @@
     "create-issue": "pwsh skills/Create-Issue.ps1",
     "screenshot": "pwsh skills/Screenshot.ps1",
     "control": "pwsh scripts/Control-Repos.ps1",
-    "test": "node --test"
+    "test": "node --test",
+    "export": "node scripts/export.js"
   },
   "dependencies": {
     "playwright": "^1.49.0"
